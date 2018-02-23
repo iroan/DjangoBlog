@@ -26,10 +26,6 @@ SECRET_KEY = '^8a1uhyvgj(v2^8=!3gl$x&4%l@jujpb$#^a6y9!ty7f-tgj%9'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
 ]
+
+
+# Application definition
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,6 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-os.path.join(BASE_DIR, "static"),
-)
+# STATICFILES_DIRS = (
+# os.path.join(BASE_DIR, "static"),
+# )
