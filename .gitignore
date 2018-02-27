@@ -108,3 +108,4 @@ venv.bak/
 log.txt
 __pycache__
 .idea/
+db.sqlite3
