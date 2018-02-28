@@ -95,7 +95,7 @@
                         {%for date in date_list%}
                         <li>
                             <!--date对象有year,month等熟悉-->
-                            <a href="#">{{date.year}}年{{date.month}}月</a>
+                            <a href="{% url 'blog:archives' date.year date.month%}">{{date.year}}年{{date.month}}月</a>
                         </li>
                         {%empty%}
                         暂无归档
@@ -109,7 +109,7 @@
                     <ul>
                         {%for category in categories%}
                         <li>
-                            <a href="#">{{category}}</a>
+                            <a href="{%url 'blog:category' category.pk%}">{{category}}</a>
                         </li>
                         {%empty%}
                         暂无分类
