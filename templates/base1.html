@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>王凯旋的博客网站</title>
-
     <!-- meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,15 +23,9 @@
 
 <body>
 
-<div class="content-body">
-    <div class="container">
-        <div class="row">
-            <main class="col-md-8">
-                {% block main %}
-                {% endblock main %}
-            </main>
-        </div>
-    </div>
+<div class="container">
+    {% block main %}
+    {% endblock main %}
 </div>
 
 <!-- Mobile Menu -->
