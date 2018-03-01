@@ -1,6 +1,6 @@
-from markdown import markdown
+from markdown import Markdown
 from django.shortcuts import render,get_object_or_404
-from .models import Post,Category
+from .models import Post,Category,Tag
 from comments.forms import CommentForm
 # Create your views here.
 
@@ -19,7 +19,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         # context 是一个字典
-        context = super().get_context_data(**kwargs)
+        context = super(IndexView,self).get_context_data(**kwargs)
         paginator = context.get('paginator')
         page = context.get('page_obj')
         is_paginated = context.get('is_paginated')
@@ -76,10 +76,13 @@ class IndexView(ListView):
 def detail(request,pk):
     post = get_object_or_404(Post,pk=pk)
     post.increase_views()
-    post.body = markdown(post.body,extensions = ['markdown.extensions.extra',
+    md = Markdown(extensions = ['markdown.extensions.extra',
                                                  'markdown.extensions.codehilite',
                                                  'markdown.extensions.toc',
                                                  ])
+    post.body = md.convert(post.body)
+    post.toc = md.toc
+
     form = CommentForm()
     comment_list = post.comment_set.all()
     context = {
@@ -113,3 +116,12 @@ class CategoryView(ListView):
     def get_queryset(self):
         cate = get_object_or_404(Category,pk = self.kwargs.get('pk'))
         return super(CategoryView,self).get_queryset().filter(category = cate)
+
+class TagView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    def get_queryset(self):
+        # 从 URL 捕获的分类 id 值
+        tag = get_object_or_404(Tag, pk = self.kwargs.get('pk'))
+        return super(TagView,self).get_queryset().filter(tags = tag)
