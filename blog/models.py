@@ -22,9 +22,18 @@ class Post(models.Model):
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField(Tag,blank=True)
     author = models.ForeignKey(User)
+    views = models.PositiveIntegerField(default=0)
+
+    # 有缺陷:当两个人同时访问页面的时候,可能views只自增1次
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
+
     def __str__(self):
         return self.title
+
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'pk':self.pk})
+
     class Meta:
         ordering = ['-created_time','title']
