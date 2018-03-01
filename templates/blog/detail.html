@@ -44,6 +44,8 @@
     </form>
     <div class="comment-list-panel">
         <ul class="comment-list list-unstyled">
+            <br/>
+            <h5>评论数量:{{context.post.comment_set.count}}</h5>
             {% for comment in context.comment_list %}
                 <li class="comment-item">
                     <span class="nickname">{{ comment.name }}</span>
